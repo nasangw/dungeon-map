@@ -4,7 +4,7 @@
   "description": "develop for dungeonMap",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --hot"
+    "start": "webpack-dev-server --inline --hot --open"
   },
   "repository": {
     "type": "git",
