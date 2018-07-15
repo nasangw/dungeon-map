@@ -190,15 +190,19 @@ export default class dungeons {
     
         // 던전 테이블
         dungeonTable.classList.remove('active');
-        this.activateDungeonTable(data.length);
+        dungeonTable.classList.remove('enable-click');
+        // this.activateDungeonTable(data.length);
 
         // 던전 마커
         dungeonSpotList.classList.remove('active');
         dungeonSpotList.innerHTML = this.getTemplateDungeonSpot(data);
 
         setTimeout(() => {
+            // 던전 테이블
+            this.activateDungeonTable(data.length);
+
             dungeonTableTbody.innerHTML = this.getTemplateDungeonTable(data);
-            this.eventHandlerTableRow();
+            // this.eventHandlerTableRow();
 
             dungeonSpotList.classList.add('active');
             this.eventHandlerBtnMarker();
@@ -212,8 +216,10 @@ export default class dungeons {
 
         const dungeonTable = document.querySelector('#dungeonTable');
         const trasitionDuration = 250;
+        dungeonTable.classList.add('active');
         setTimeout(() => {
-            dungeonTable.classList.add('active');
+            this.eventHandlerTableRow();
+            dungeonTable.classList.add('enable-click');
         }, trasitionDuration * length);
     }
 

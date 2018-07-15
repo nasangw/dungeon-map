@@ -318,22 +318,22 @@ button {
             height: 1037px;
             background: url(#{$path}/bg_map_dungeons.jpg) no-repeat;
             &.level-grade2 .dungeons__spot-list .btn-marker {
-                    background-position: 0 -50px;
+                background-position: 0 -50px;
             }
             &.level-grade3 .dungeons__spot-list .btn-marker {
-                    background-position: 0 -100px;
+                background-position: 0 -100px;
             }
             &.level-grade4 .dungeons__spot-list .btn-marker {
-                    background-position: 0 -150px;
+                background-position: 0 -150px;
             }
             &.level-grade5 .dungeons__spot-list .btn-marker {
-                    background-position: 0 -200px;
+                background-position: 0 -200px;
             }
             &.level-grade6 .dungeons__spot-list .btn-marker {
-                    background-position: 0 -250px;
+                background-position: 0 -250px;
             }
             &.level-grade7 .dungeons__spot-list .btn-marker {
-                    background-position: 0 -300px;
+                background-position: 0 -300px;
             }
             &.init {
                 .dungeons__header {
@@ -519,6 +519,11 @@ button {
                 &.active {
                     transform: translateX(0);
                 }
+                &.enable-click {
+                    .table tbody tr {
+                        cursor: pointer;
+                    }
+                }
                 .table {
                     table-layout: fixed;
                     max-width: 100%;
@@ -537,7 +542,7 @@ button {
                     }
                     tbody {
                         tr {
-                            cursor: pointer;
+                            cursor: not-allowed;
                             &:last-child td {
                                 border-width: 0;
                             }
