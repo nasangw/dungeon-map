@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 // const ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = {
@@ -18,10 +19,10 @@ module.exports = {
         contentBase: './public',
     },
     output: {
+        path: path.join(__dirname, 'public'),
         filename: '[name].js',
-        path: path.join(__dirname, 'public')
-        // filename: 'bundle.js', 
         // path: path.resolve(__dirname, 'public'),
+        // filename: 'bundle.js', 
     },
     mode: 'development',
     // devtool: '#inline-source-map',
@@ -42,19 +43,38 @@ module.exports = {
                     }
                 }
             },
-            {
+            // {
+            //     test: /\.scss$/,
+            //     use: ExtractTextPlugin.extract({
+            //         // fallback은 아래 플러그인이 작동하지 않을 경우 style-loader가 작동함을 의미한다.
+            //         fallback: 'style-loader',
+            //         use: [ 'css-loader', 'sass-loader', 'postcss-scss' ]
+            //     })
+            // },
+            { 
                 test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [ 'css-loader', 'sass-loader' ]
-                })
-            },
+                loader: ExtractTextPlugin.extract(['css-loader',
+                {
+                    loader: 'postcss-loader',
+                    options: {
+                        plugins: () => autoprefixer({
+                            browsers: ['last 3 versions', '> 1%']
+                        })
+                    }
+                }, 'sass-loader'])
+            }
         ]
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        // new ExtractTextPlugin('../css/[name].css'),
-        new ExtractTextPlugin( path.resolve(__dirname, 'public/[name].css') ),
+        // new ExtractTextPlugin(path.resolve(__dirname, 'public/[name].css')),
+        new ExtractTextPlugin('./[name].css'),
+        // new ExtractTextPlugin({
+        //     path: path.join(__dirname, 'public'),
+        //     filename: '[name].css',
+            // filename: path.resolve(__dirname, 'public/[name].css'), 
+            // allChunks: true,
+        // }),
         new UglifyJSPlugin(),
     ]
 }
